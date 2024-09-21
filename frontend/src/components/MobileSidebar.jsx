@@ -3,11 +3,10 @@ import { BiBox } from "react-icons/bi";
 import { TbSettings } from "react-icons/tb";
 import { ImCart } from "react-icons/im";
 import { NavLink } from "react-router-dom";
-import logo from '../assets/logo2.svg';
-// import { useDisconnect } from "@web3modal/ethers/react";
+import { useDisconnect } from "@web3modal/ethers/react";
 
 const MobileSidebar = () =>  {
-//   const { disconnect } = useDisconnect()
+  const { disconnect } = useDisconnect()
 
   const activeStyle = {
     background: '#B9A7C3',
@@ -21,7 +20,6 @@ const MobileSidebar = () =>  {
       <NavLink to="/dashboard" className="text-[24px] py-4 px-4" style={({isActive}) => isActive ? activeStyle : null } end><CgHomeAlt /></NavLink>
       <NavLink to="marketplace" className="text-[20px] py-4 px-4" style={({isActive}) => isActive ? activeStyle : null }><ImCart /></NavLink>
       <NavLink to="aichat" className="text-[20px] py-4 px-4" style={({isActive}) => isActive ? activeStyle : null }><BiBox /></NavLink>
-      {/* <button className="text-[14px]   flex items-center py-4 mb-4 px-6  hover:text-[#015C28]" onClick={() => disconnect()}><TbSettings  /> Log out</button> */}
     </div>
   )
 }
