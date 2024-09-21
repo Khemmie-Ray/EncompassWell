@@ -4,10 +4,10 @@ import { TbSettings } from "react-icons/tb";
 import { ImCart } from "react-icons/im";
 import { NavLink } from "react-router-dom";
 import logo from '../assets/logo2.svg';
-// import { useDisconnect } from "@web3modal/ethers/react";
+import { useDisconnect } from "@web3modal/ethers/react";
 
 const Sidebar = () =>  {
-//   const { disconnect } = useDisconnect()
+  const { disconnect } = useDisconnect()
 
   const activeStyle = {
     background: '#B9A7C3',
@@ -23,7 +23,7 @@ const Sidebar = () =>  {
       <NavLink to="/dashboard" className="text-[14px] flex items-center py-4 mb-6 px-4" style={({isActive}) => isActive ? activeStyle : null } end><CgHomeAlt className="mr-4" />Dashboard</NavLink>
       <NavLink to="marketplace" className="text-[14px] flex items-center py-4 mb-6 px-4" style={({isActive}) => isActive ? activeStyle : null }><ImCart className="mr-4" /> Marketplace</NavLink>
       <NavLink to="aichat" className="text-[14px]   flex items-center py-4 mb-6 px-4" style={({isActive}) => isActive ? activeStyle : null }><BiBox className="mr-4" />AI Chat</NavLink>
-      {/* <button className="text-[14px]   flex items-center py-4 mb-4 px-6  hover:text-[#015C28]" onClick={() => disconnect()}><TbSettings className="mr-4"  /> Log out</button> */}
+      <button className="text-[16px]   flex items-center py-4 mb-4 px-4 mt-auto border-t border-grey" onClick={() => disconnect()}><TbSettings className="mr-4"  /> Log out</button>
     </div>
   );
 }

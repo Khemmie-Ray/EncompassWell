@@ -31,22 +31,19 @@ export function handleUserInput(input) {
 }
 
 export function checkFileType(url) {
-  const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
-  const musicExtensions = ['mp3', 'wav', 'ogg', 'flac'];
-  
-  const extension = url.split('.').pop().toLowerCase();
+  const imageExtensions = ["jpg", "jpeg", "png", "gif", "svg"];
+  const musicExtensions = ["mp3", "wav", "ogg", "flac"];
+
+  const extension = url.split(".").pop().toLowerCase();
 
   if (imageExtensions.includes(extension)) {
-      return 'image';
+    return "image";
   } else if (musicExtensions.includes(extension)) {
-      return 'music';
+    return "music";
   } else {
-      return 'unknown';
+    return "unknown";
   }
 }
-
-
-
 
 // Helper function to append the last AI text response to the current input
 function appendLastTextResponse(currentInput) {

@@ -15,6 +15,9 @@ import PageLoader from "./components/loaders/PageLoader";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AIChat from "./pages/Dashboard/AIChat";
+import { configWeb3Modal } from "./connection";
+
+configWeb3Modal();
 
 const MarketPlace = lazy(() => import('./pages/Dashboard/MarketPlace'))
 
