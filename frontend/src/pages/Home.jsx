@@ -10,7 +10,7 @@ import artNFT from "../assets/artNft.svg";
 import avatar1 from "../assets/avartar1.svg";
 import avatar2 from "../assets/avatar2.svg";
 import avatar3 from "../assets/avatar3.svg";
-
+// import AIChat from "../pages/Dashboard/AIChat";
 const Home = () => {
   return (
     <div>
@@ -140,6 +140,7 @@ const Home = () => {
         </section>
       </main>
       <Footer />
+      {/* <AIChat/> */}
     </div>
   );
 };

@@ -4,7 +4,8 @@ import { IoNotificationsCircleOutline } from "react-icons/io5";
 import logo from "../../assets/logo2.svg";
 import { IoArrowUpCircle } from "react-icons/io5";
 import iconlogo from "../../assets/icon.svg";
-import avatar from '../../assets/avatar2.svg'
+import avatar from "../../assets/avatar2.svg";
+import { handleUserInput, checkFileType} from "../../helpers/helper";
 
 const AIChat = () => {
   const [messages, setMessages] = useState([]);
@@ -21,7 +22,7 @@ const AIChat = () => {
     setTimeout(() => {
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: "bot", text: "This is an automated response!" },
+        { sender: "bot", text: "This is an automated response!" }, // response might be more than text
       ]);
     }, 1000);
   };
@@ -29,6 +30,15 @@ const AIChat = () => {
   const handleSendMessage = () => {
     if (input.trim()) {
       setMessages([...messages, { sender: "user", text: input }]);
+      handleUserInput(input)
+        .then((response) => {
+          console.log("API Response:", response);
+          let fileType = checkFileType(response[0]);
+          console.log("File Type:", fileType);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
       setInput("");
       simulateResponse();
     }
@@ -60,7 +70,10 @@ const AIChat = () => {
         </div>
       </section>
       <section className="lg:w-[80%] md:w-[80%] w-[90%] mx-auto mt-10">
-        <div ref={chatRef} className="h-64 lg:h-[60vh] md:h-[60vh] overflow-y-auto p-4 flex flex-col">
+        <div
+          ref={chatRef}
+          className="h-64 lg:h-[60vh] md:h-[60vh] overflow-y-auto p-4 flex flex-col"
+        >
           {messages.length > 0 ? (
             messages.map((message, index) => (
               <div
@@ -72,11 +85,15 @@ const AIChat = () => {
                 }}
               >
                 {message.sender === "user" ? (
-                   <p className="text-white flex items-center">{message.text}<img src={avatar} alt="" className="ml-4 w-[50px]"/>
-                </p>
+                  <p className="text-white flex items-center">
+                    {message.text}
+                    <img src={avatar} alt="" className="ml-4 w-[50px]" />
+                  </p>
                 ) : (
-                  <p className="text-white flex items-center"><img src={iconlogo} alt="" className="mr-4 w-[50px]"/> {message.text}
-                </p>
+                  <p className="text-white flex items-center">
+                    <img src={iconlogo} alt="" className="mr-4 w-[50px]" />{" "}
+                    {message.text}
+                  </p>
                 )}
               </div>
             ))
@@ -94,6 +111,7 @@ const AIChat = () => {
             placeholder="Write a message"
             required
             onChange={(e) => setInput(e.target.value)}
+            value={input}
             className="bg-transparent outline-0"
           />
           <button className="text-secondary" onClick={handleSendMessage}>
