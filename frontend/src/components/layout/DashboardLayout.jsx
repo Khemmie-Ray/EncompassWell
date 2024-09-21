@@ -10,7 +10,7 @@ const DashboardLayout = () => {
         <div className='fixed bottom-0 w-[100%]'>
       <MobileSidebar />
         </div>
-        <div className='lg:w-[80%] md:w-[80%] w-[100%] py-6'>
+        <div className='lg:w-[80%] md:w-[80%] w-[100%] py-6 h-auto lg:h-[95vh] md:h-[95vh] overflow-y-scroll'>
         <Outlet />
         </div>
     </div>

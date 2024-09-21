@@ -38,12 +38,12 @@ const Dashboard = () => {
             </div>
           </div>
         </section>
-        <section className='w-[80%] mx-auto'>
+        <section className='lg:w-[80%] md:w-[80%] w-[90%] mx-auto'>
           <h2 className='lg:text-[40px] md:text-[40px] text-[28px] text-center mt-24'>Good <span className='font-InstrumentSerif italic'> {greeting}</span>, What’s on your mind?</h2>
           <p className='text-center font-[300] mb-6'>If you need any help getting started, you can start with these options </p>
           <AICards />
         </section>
-      <section className='w-[80%] mx-auto'>
+      <section className='lg:w-[80%] md:w-[80%] w-[90%] mx-auto'>
       <div className="flex items-center w-[100%] rounded-full border border-grey pl-6 justify-between bg-gradient-to-tr from-[#151A16] to-[#666666]/5 shadow-lg shadow-grey/20">
             <input
               type="text"
@@ -54,8 +54,8 @@ const Dashboard = () => {
             <button className='text-secondary'><IoArrowUpCircle className='text-[60px]'/></button>
             </div>
             <div className='my-6'>
-              <button className='bg-gradient-to-tr from-[#151A16] to-[#666666]/20 mr-4 px-6 py-2 rounded-full border border-grey'>Play calming sounds</button>
-              <button className='bg-gradient-to-tr from-[#151A16] to-[#666666]/20 mr-4 px-6 py-2 rounded-full border border-grey'>Create art</button>
+              <button className='bg-gradient-to-tr from-[#151A16] to-[#666666]/20 mr-4 px-6 py-2 rounded-full border border-grey mb-4'>Play calming sounds</button>
+              <button className='bg-gradient-to-tr from-[#151A16] to-[#666666]/20 mr-4 px-6 py-2 rounded-full border border-grey mb-4'>Create art</button>
             </div>
       </section>
     </main>
