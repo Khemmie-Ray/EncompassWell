@@ -13,7 +13,6 @@ let aiResponseArray = [];
 
 // Function to analyze input and decide which API to call
 export function handleUserInput(input) {
-  console.log(import.meta.env.VITE_X_API_Key);
   // Check for music-related keywords
   if (/play|song|music/i.test(input)) {
     let finalInput = appendLastTextResponse(input);
