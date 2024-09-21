@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/text",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/api/music",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/api/text",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/api/image",
+      "dest": "/server.js"
+    }
+  ]
+}

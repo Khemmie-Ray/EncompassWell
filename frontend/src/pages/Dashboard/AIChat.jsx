@@ -30,6 +30,7 @@ const AIChat = () => {
 
   const handleSendMessage = () => {
     if (input.trim()) {
+      console.log("SendMessage")
       setMessages([...messages, { sender: "user", text: input }]);
       handleUserInput(input)
         .then((response) => {

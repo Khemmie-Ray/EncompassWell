@@ -70,6 +70,7 @@ const pollForAudioUrl = async (taskId) => {
 
   return audioUrl;
 };
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 // POST endpoint for Music API
 app.post("/api/music", async (req, res) => {
@@ -119,3 +120,5 @@ app.post("/api/image", async (req, res) => {
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app;
