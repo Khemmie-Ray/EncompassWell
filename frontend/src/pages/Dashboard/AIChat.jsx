@@ -5,8 +5,8 @@ import logo from "../../assets/logo2.svg";
 import { IoArrowUpCircle } from "react-icons/io5";
 import iconlogo from "../../assets/icon.svg";
 import avatar from "../../assets/avatar2.svg";
-import { handleUserInput, checkFileType} from "../../helpers/helper";
-import ConnectButton from '../../components/ConnectButton';
+import { handleUserInput, checkFileType } from "../../helpers/helper";
+import ConnectButton from "../../components/ConnectButton";
 
 const AIChat = () => {
   const [messages, setMessages] = useState([]);
@@ -19,44 +19,49 @@ const AIChat = () => {
     }
   }, [messages]);
 
-  const simulateResponse = () => {
+  const simulateResponse = (fileType, data) => {
     setTimeout(() => {
+      console.log("simulate response", data);
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: "bot", text: "This is an automated response!" }, // response might be more than text
+        {
+          sender: "bot",
+          text: `This is an automated response! ${fileType} file incoming`,
+        }, // response might be more than text
       ]);
     }, 1000);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (input.trim()) {
-      console.log("SendMessage")
+      console.log("SendMessage");
       setMessages([...messages, { sender: "user", text: input }]);
-      handleUserInput(input)
-        .then((response) => {
-          console.log("API Response:", response);
-          let fileType = checkFileType(response[0]);
-          console.log("File Type:", fileType);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+      try {
+        const response = await handleUserInput(input);
+        // console.log("API Response:", response);
+        const fileType = checkFileType(response[0]);
+        // console.log("File Type:", fileType);
+        simulateResponse(fileType, response);
+      } catch (error) {
+        console.error("Error:", error);
+      }
       setInput("");
-      simulateResponse();
     }
   };
 
   return (
     <main className="h-auto lg:h-[90vh] md:h-[90vh] flex flex-col mb-8">
-        <section className='flex py-6 border-b border-grey justify-between lg:flex-row md:flex-row flex-col'>
-        <div className='flex justify-between lg:hidden md:hidden  pb-12 px-4 items-center'>
-        <img src={logo} alt="" className='w-[50px]'/>
+      <section className="flex py-6 border-b border-grey justify-between lg:flex-row md:flex-row flex-col">
+        <div className="flex justify-between lg:hidden md:hidden  pb-12 px-4 items-center">
+          <img src={logo} alt="" className="w-[50px]" />
           <ConnectButton />
-          </div>
-            <h2 className='lg:text-[24px] md:text-[24px] text-[20px] font-InstrumentSerif px-4 italic mb-4'>AI Chat</h2>       
-            <div className='flex justify-between lg:w-[50%] md:w-[50%] w-[100%] px-4 mb-4'>
-                <IoNotificationsCircleOutline className='text-5xl'/>
-            <div className="flex items-center lg:w-[80%] md:w-[80%] w-[80%] rounded-full border border-grey px-6 py-4">
+        </div>
+        <h2 className="lg:text-[24px] md:text-[24px] text-[20px] font-InstrumentSerif px-4 italic mb-4">
+          AI Chat
+        </h2>
+        <div className="flex justify-between lg:w-[50%] md:w-[50%] w-[100%] px-4 mb-4">
+          <IoNotificationsCircleOutline className="text-5xl" />
+          <div className="flex items-center lg:w-[80%] md:w-[80%] w-[80%] rounded-full border border-grey px-6 py-4">
             <FaSearch className="mr-4 text-xl" />
             <input
               type="text"
@@ -64,12 +69,12 @@ const AIChat = () => {
               required
               className="bg-transparent outline-0"
             />
-            </div>
           </div>
-          <div className='hidden lg:flex md:flex'>
+        </div>
+        <div className="hidden lg:flex md:flex">
           <ConnectButton />
-          </div>
-        </section>
+        </div>
+      </section>
       <section className="lg:w-[80%] md:w-[80%] w-[90%] mx-auto mt-10">
         <div
           ref={chatRef}

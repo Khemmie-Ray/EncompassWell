@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const musicApiUrl = "http://localhost:5000/api/music";
-const textApiUrl = "http://localhost:5000/api/text";
-const imageApiUrl = "http://localhost:5000/api/image";
+const musicApiUrl = "https://encompass-h.vercel.app/api/music";
+const textApiUrl = "https://encompass-h.vercel.app/api/text";
+const imageApiUrl = "https://encompass-h.vercel.app/api/image";
 
 const headers = {
   "X-API-Key": import.meta.env.VITE_X_API_KEY,
