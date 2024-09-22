@@ -9,20 +9,16 @@ const useGetAllNft = () => {
     const [allNft, setAllNft] = useState([]);
     const [count, setCount] = useState(0);
     const { address } = useWeb3ModalAccount()
+    // console.log(address)
 
     const fetchAllNft = useCallback(async () => {
         try {
             const contract = getNFTMintContract(readOnlyProvider);
             const res = await contract.getUserNFTs(address);
-            // const converted = res?.map((item)=>{
-            //     return{
-            //     nftaddress: convertIpfsUrl(item[0]),
-            //     owner: item[1],
-            //     tokenId: item[2],
-            //     price: item[3], 
-            //   }      
-            // }) 
-            setAllNft(res)
+          
+            const nftUrls = Object.values(res).map((url) => url);
+            
+            setAllNft(nftUrls);
         } catch (error) {
             console.error(error);
         }
@@ -42,7 +38,7 @@ const useGetAllNft = () => {
             topics: [ethers.id("safeMint(address,string)")],
         };
 
-        wssProvider.getLogs({ ...filter, fromBlock: 17586220 }).then((events) => {
+        wssProvider.getLogs({ ...filter, fromBlock: 17590608 }).then((events) => {
             setCount(events.length + 1);
         });
 

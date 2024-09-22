@@ -6,8 +6,7 @@ import { IoNotificationsCircleOutline } from "react-icons/io5";
 import useGetAllNft from '../../Hooks/useGetAllNft';
 
 const History = () => {
-    const { allNft } = useGetAllNft();
-  console.log(allNft)
+    const allNft = useGetAllNft();
 
   return (
     <main>
@@ -33,7 +32,19 @@ const History = () => {
           <ConnectButton />
           </div>
         </section>
-
+      <section className="p-4 flex flex-col">
+        {allNft && allNft.length > 0 ? (
+          <div className="flex justify-between lg:flex-row md:flex-row flex-col">
+            {allNft.map((nft, index) => (
+              <div key={index} className="w-[100%] lg:w-[48%] md:w-[48%] mb-4">
+                <img src={nft} alt={`NFT ${index}`} className="w-full h-auto rounded-2xl" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className='m-auto text-[24px]'>No NFTs found.</p>
+        )}
+      </section>
     </main>
   )
 }
