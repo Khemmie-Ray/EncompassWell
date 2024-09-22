@@ -1,33 +1,28 @@
 import { useCallback, useEffect, useState } from "react";
 import { readOnlyProvider } from "../constants/providers";
-import { getMarketplaceContract } from "../constants/contract";
+import { getNFTMintContract } from "../constants/contract";
 import { wssProvider } from "../constants/providers";
 import { ethers } from "ethers";
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
-const useGetListing = () => {
+const useGetAllNft = () => {
     const [allNft, setAllNft] = useState([]);
     const [count, setCount] = useState(0);
-
-    const convertIpfsUrl = (url) => {
-        if (url.startsWith("ipfs://")) {
-            return url.replace("ipfs://", "https://ipfs.io/ipfs/");
-        }
-        return url;
-    };
+    const { address } = useWeb3ModalAccount()
 
     const fetchAllNft = useCallback(async () => {
         try {
-            const contract = getMarketplaceContract(readOnlyProvider);
-            const res = await contract.getListing();
-            const converted = res?.map((item)=>{
-                return{
-                nftaddress: convertIpfsUrl(item[0]),
-                owner: item[1],
-                tokenId: item[2],
-                price: item[3], 
-              }      
-            }) 
-            setAllNft(converted)
+            const contract = getNFTMintContract(readOnlyProvider);
+            const res = await contract.getUserNFTs(address);
+            // const converted = res?.map((item)=>{
+            //     return{
+            //     nftaddress: convertIpfsUrl(item[0]),
+            //     owner: item[1],
+            //     tokenId: item[2],
+            //     price: item[3], 
+            //   }      
+            // }) 
+            setAllNft(res)
         } catch (error) {
             console.error(error);
         }
@@ -43,11 +38,11 @@ const useGetListing = () => {
         fetchAllNft();
 
         const filter = {
-            address: import.meta.env.VITE_MARKETPLACE_ADDRESS,
-            topics: [ethers.id("ItemsList(address,address,uint, uint)")],
+            address: import.meta.env.VITE_NFT_ADDRESS,
+            topics: [ethers.id("safeMint(address,string)")],
         };
 
-        wssProvider.getLogs({ ...filter, fromBlock: 17545385 }).then((events) => {
+        wssProvider.getLogs({ ...filter, fromBlock: 17586220 }).then((events) => {
             setCount(events.length + 1);
         });
 
@@ -66,4 +61,4 @@ const useGetListing = () => {
     return allNft;
 }
 
-export default useGetListing;
+export default useGetAllNft;

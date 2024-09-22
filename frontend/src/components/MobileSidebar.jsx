@@ -3,10 +3,9 @@ import { BiBox } from "react-icons/bi";
 import { TbSettings } from "react-icons/tb";
 import { ImCart } from "react-icons/im";
 import { NavLink } from "react-router-dom";
-import { useDisconnect } from "@web3modal/ethers/react";
+import { RiChatHistoryFill } from "react-icons/ri";
 
 const MobileSidebar = () =>  {
-  const { disconnect } = useDisconnect()
 
   const activeStyle = {
     background: '#B9A7C3',
@@ -20,6 +19,7 @@ const MobileSidebar = () =>  {
       <NavLink to="/dashboard" className="text-[24px] py-4 px-4" style={({isActive}) => isActive ? activeStyle : null } end><CgHomeAlt /></NavLink>
       <NavLink to="marketplace" className="text-[20px] py-4 px-4" style={({isActive}) => isActive ? activeStyle : null }><ImCart /></NavLink>
       <NavLink to="aichat" className="text-[20px] py-4 px-4" style={({isActive}) => isActive ? activeStyle : null }><BiBox /></NavLink>
+      <NavLink to="history" className="text-[20px] py-4 px-4" style={({isActive}) => isActive ? activeStyle : null }><RiChatHistoryFill /></NavLink>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { getProvider }from '../constants/providers'
-import { isSupportedChain } from '../connection/index'
+// import { isSupportedChain } from '../connection/index'
 import { getNFTMintContract } from '../constants/contract'
 import {
   useWeb3ModalAccount,
@@ -25,7 +25,7 @@ const MintNft = ({ item }) => {
     try {
       // Assuming the smart contract's safeMint function requires a token ID (index)
       const transaction = await contract.safeMint(address, item);
-      console.log("transaction: ", transaction);
+      // console.log("transaction: ", transaction);
       const receipt = await transaction.wait();
 
       if (receipt.status) {

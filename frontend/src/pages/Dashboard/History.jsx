@@ -1,14 +1,17 @@
 import React from 'react'
+import ConnectButton from '../../components/ConnectButton'
+import logo from "../../assets/logo.svg";
 import { FaSearch } from "react-icons/fa";
 import { IoNotificationsCircleOutline } from "react-icons/io5";
-import logo from '../../assets/logo.svg'
-import ConnectButton from '../../components/ConnectButton';
+import useGetAllNft from '../../Hooks/useGetAllNft';
 
-const MarketPlace = () => {
-  
+const History = () => {
+    const { allNft } = useGetAllNft();
+  console.log(allNft)
+
   return (
     <main>
-            <section className='flex py-6 border-b border-grey justify-between lg:flex-row md:flex-row flex-col'>
+         <section className='flex py-6 border-b border-grey justify-between lg:flex-row md:flex-row flex-col'>
         <div className='flex justify-between lg:hidden md:hidden  pb-12 px-4 items-center'>
         <img src={logo} alt="" className='w-[50px]'/>
           <ConnectButton />
@@ -30,8 +33,9 @@ const MarketPlace = () => {
           <ConnectButton />
           </div>
         </section>
+
     </main>
   )
 }
 
-export default MarketPlace
+export default History

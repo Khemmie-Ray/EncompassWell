@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoNotificationsCircleOutline, IoArrowUpCircle } from "react-icons/io5";
-import logo from "../../assets/logo2.svg";
+import logo from "../../assets/logo.svg";
 import iconlogo from "../../assets/icon.svg";
 import avatar from "../../assets/avatar2.svg";
 import { handleUserInput, checkFileType } from "../../helpers/helper";
@@ -69,17 +69,15 @@ const AIChat = () => {
 
   return (
     <main className="h-auto lg:h-[90vh] md:h-[90vh] flex flex-col mb-8">
-      <section className="flex py-6 border-b border-grey justify-between lg:flex-row md:flex-row flex-col">
-        <div className="flex justify-between lg:hidden md:hidden pb-12 px-4 items-center">
-          <img src={logo} alt="" className="w-[50px]" />
+      <section className='flex py-6 border-b border-grey justify-between lg:flex-row md:flex-row flex-col'>
+        <div className='flex justify-between lg:hidden md:hidden  pb-12 px-4 items-center'>
+        <img src={logo} alt="" className='w-[50px]'/>
           <ConnectButton />
-        </div>
-        <h2 className="lg:text-[24px] md:text-[24px] text-[20px] font-InstrumentSerif px-4 italic mb-4">
-          AI Chat
-        </h2>
-        <div className="flex justify-between lg:w-[50%] md:w-[50%] w-[100%] px-4 mb-4">
-          <IoNotificationsCircleOutline className="text-5xl" />
-          <div className="flex items-center lg:w-[80%] md:w-[80%] w-[80%] rounded-full border border-grey px-6 py-4">
+          </div>
+            <h2 className='lg:text-[24px] md:text-[24px] text-[20px] font-InstrumentSerif px-4 italic mb-4'>Home</h2>       
+            <div className='flex justify-between lg:w-[50%] md:w-[50%] w-[100%] px-4 mb-4'>
+                <IoNotificationsCircleOutline className='text-5xl'/>
+            <div className="flex items-center lg:w-[80%] md:w-[80%] w-[80%] rounded-full border border-grey px-6 py-4">
             <FaSearch className="mr-4 text-xl" />
             <input
               type="text"
@@ -87,12 +85,12 @@ const AIChat = () => {
               required
               className="bg-transparent outline-0"
             />
+            </div>
           </div>
-        </div>
-        <div className="hidden lg:flex md:flex">
+          <div className='hidden lg:flex md:flex'>
           <ConnectButton />
-        </div>
-      </section>
+          </div>
+        </section>
       <section className="lg:w-[80%] md:w-[80%] w-[90%] mx-auto mt-10">
         <div
           ref={chatRef}

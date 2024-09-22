@@ -20,6 +20,7 @@ import { configWeb3Modal } from "./connection";
 configWeb3Modal();
 
 const MarketPlace = lazy(() => import('./pages/Dashboard/MarketPlace'))
+const History = lazy(() => import('./pages/Dashboard/History'))
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       <Route index element={<Dashboard />} />
       <Route path="marketplace" element={<MarketPlace />} />
       <Route path="aichat" element={<AIChat />} />
+      <Route path="history" element={<History/>} />
       </Route>
     </Route>
   )
