@@ -16,7 +16,7 @@ const useGetAllNft = () => {
             const contract = getNFTMintContract(readOnlyProvider);
             const res = await contract.getUserNFTs(address);
           
-            const nftUrls = Object.values(res).map((url) => url);
+            const nftUrls = Object.values(res)?.map((url) => url);
             
             setAllNft(nftUrls);
         } catch (error) {
