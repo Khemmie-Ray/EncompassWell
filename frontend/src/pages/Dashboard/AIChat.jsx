@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import { IoNotificationsCircleOutline } from "react-icons/io5";
+import { IoNotificationsCircleOutline, IoArrowUpCircle } from "react-icons/io5";
 import logo from "../../assets/logo2.svg";
-import { IoArrowUpCircle } from "react-icons/io5";
 import iconlogo from "../../assets/icon.svg";
 import avatar from "../../assets/avatar2.svg";
 import { handleUserInput, checkFileType } from "../../helpers/helper";
 import ConnectButton from "../../components/ConnectButton";
+import MintNft from "../../components/MintNft";
 
 const AIChat = () => {
   const [messages, setMessages] = useState([]);
@@ -21,27 +21,24 @@ const AIChat = () => {
 
   const simulateResponse = (fileType, data) => {
     setTimeout(() => {
-      console.log("simulate response", data);
       setMessages((prevMessages) => [
         ...prevMessages,
         {
           sender: "bot",
-          text: `This is an automated response! ${fileType} file incoming`,
-        }, // response might be more than text
+          content: data, 
+          fileType: fileType, 
+        },
       ]);
     }, 1000);
   };
 
   const handleSendMessage = async () => {
     if (input.trim()) {
-      console.log("SendMessage");
       setMessages([...messages, { sender: "user", text: input }]);
       try {
-        const response = await handleUserInput(input);
-        // console.log("API Response:", response);
-        const fileType = checkFileType(response[0]);
-        // console.log("File Type:", fileType);
-        simulateResponse(fileType, response);
+        const response = await handleUserInput(input); // Assuming response is an array with 2 items
+        const fileType = checkFileType(response[0]); // Check the type of the first item
+        simulateResponse(fileType, response); // Pass the response array to simulateResponse
       } catch (error) {
         console.error("Error:", error);
       }
@@ -49,10 +46,31 @@ const AIChat = () => {
     }
   };
 
+  const renderMessageContent = (content, fileType) => {
+    return content.map((item, index) => {
+      if (fileType === "image") {
+        return (
+          <div className="w-[100%] lg:w-[47%] md:w-[47%]">
+        <img key={index} src={item} alt="response" className="w-[100%] rounded-lg h-auto mb-2" />
+       <MintNft item={item} />
+        </div>)
+      } else if (fileType === "audio") {
+        return (
+          <audio key={index} controls className="mb-2">
+            <source src={item} type="audio/mpeg" />
+            Your browser does not support the audio tag.
+          </audio>
+        );
+      } else {
+        return <p key={index} className="text-white mb-2">{item}</p>;
+      }
+    });
+  };
+
   return (
     <main className="h-auto lg:h-[90vh] md:h-[90vh] flex flex-col mb-8">
       <section className="flex py-6 border-b border-grey justify-between lg:flex-row md:flex-row flex-col">
-        <div className="flex justify-between lg:hidden md:hidden  pb-12 px-4 items-center">
+        <div className="flex justify-between lg:hidden md:hidden pb-12 px-4 items-center">
           <img src={logo} alt="" className="w-[50px]" />
           <ConnectButton />
         </div>
@@ -84,7 +102,7 @@ const AIChat = () => {
             messages.map((message, index) => (
               <div
                 key={index}
-                className={`mb-3 p-2`}
+                className="mb-3 p-2"
                 style={{
                   alignSelf:
                     message.sender === "user" ? "flex-end" : "flex-start",
@@ -96,10 +114,12 @@ const AIChat = () => {
                     <img src={avatar} alt="" className="ml-4 w-[50px]" />
                   </p>
                 ) : (
-                  <p className="text-white flex items-center">
-                    <img src={iconlogo} alt="" className="mr-4 w-[50px]" />{" "}
-                    {message.text}
-                  </p>
+                  <div className="flex items-start my-4">
+                    <img src={iconlogo} alt="" className="mr-4 w-[50px]" />
+                    <div className="flex items-center justify-between lg:flex-row md:flex-row flex-col">
+                    {renderMessageContent(message.content, message.fileType)}
+                    </div>
+                  </div>
                 )}
               </div>
             ))
@@ -118,7 +138,7 @@ const AIChat = () => {
             required
             onChange={(e) => setInput(e.target.value)}
             value={input}
-            className="bg-transparent outline-0"
+            className="bg-transparent outline-0 w-[80%]"
           />
           <button className="text-secondary" onClick={handleSendMessage}>
             <IoArrowUpCircle className="text-[60px]" />
