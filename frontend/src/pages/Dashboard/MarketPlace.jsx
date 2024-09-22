@@ -5,6 +5,7 @@ import logo from '../../assets/logo.svg'
 import ConnectButton from '../../components/ConnectButton';
 
 const MarketPlace = () => {
+  // ['', '']
   
   return (
     <main>
@@ -13,7 +14,7 @@ const MarketPlace = () => {
         <img src={logo} alt="" className='w-[50px]'/>
           <ConnectButton />
           </div>
-            <h2 className='lg:text-[24px] md:text-[24px] text-[20px] font-InstrumentSerif px-4 italic mb-4'>Home</h2>       
+            <h2 className='lg:text-[24px] md:text-[24px] text-[20px] font-InstrumentSerif px-4 italic mb-4'>Marketplace</h2>       
             <div className='flex justify-between lg:w-[50%] md:w-[50%] w-[100%] px-4 mb-4'>
                 <IoNotificationsCircleOutline className='text-5xl'/>
             <div className="flex items-center lg:w-[80%] md:w-[80%] w-[80%] rounded-full border border-grey px-6 py-4">
@@ -28,6 +29,26 @@ const MarketPlace = () => {
           </div>
           <div className='hidden lg:flex md:flex'>
           <ConnectButton />
+          </div>
+        </section>
+        <section className='flex justify-between lg:flex-row md:flex-row flex-col flex-wrap my-8 lg:w-[80%] md:w-[80%] w-[90%] mx-auto'>
+        <button 
+          className="bg-secondary rounded-full p-4 my-4 w-[100%] text-primary ml-auto lg:w-[20%] md:w-[20%]">List NFT</button>
+        </section>
+        <section className='flex justify-between lg:flex-row md:flex-row flex-col flex-wrap my-8 lg:w-[80%] md:w-[80%] w-[90%] mx-auto'>
+          <div className="w-[90%] mx-auto lg:mx-0 md:mx-0 lg:w-[32%] md:w-[32%] mb-4 bg-[#242932] p-4 rounded-2xl">
+            <img src="https://img.midjourneyapi.xyz/sd/bc8745d0-c459-4d42-9381-30b99068d9ad.png" alt="" className="rounded-2xl" />
+            <p className='mt-4'>Owner: 0xrt4566....BD</p>
+            <p>Price: $20</p>
+            <button 
+          className="bg-secondary rounded-full px-4 py-2 my-4 w-[100%] text-primary">Buy</button>
+          </div>
+          <div className="w-[90%] mx-auto lg:mx-0 md:mx-0 lg:w-[32%] md:w-[32%] mb-4 bg-[#242932] p-4 rounded-2xl">
+            <img src="https://img.midjourneyapi.xyz/sd/3a4f60f0-0b28-43ac-acad-896ef37190d8.png" alt="" className="rounded-2xl" />
+            <p className='mt-4'>Owner: 0xrt4566....BD</p>
+            <p>Price: $100</p>
+            <button 
+          className="bg-secondary rounded-full px-4 py-2 my-4 w-[100%] text-primary">Buy</button>
           </div>
         </section>
     </main>

@@ -1,7 +1,7 @@
-# EncompassWell: AI-Powered NFT Art Therapy on Ethereum
+# EncompassWell: AI and Blockchain Powered NFT Art Therapy
 
 ## Overview
-EncompassWell is a decentralized application (dApp) built on the Ethereum blockchain, aimed at promoting mental wellness through personalized art therapy. Leveraging AI, users are guided through a creative process that includes generating art based on their emotional state, completing guided meditations, and minting their finished artwork as NFTs. EncompassWell creates a unique intersection between art, technology, and mental health, empowering users to express themselves and own their digital creations.
+EncompassWell is a decentralized application (dApp) built on the Optimism Sepolia blockchain, aimed at promoting mental wellness through personalized art therapy. Leveraging AI, users are guided through a creative process that includes generating art based on their emotional state, completing guided meditations, and minting their finished artwork as NFTs. EncompassWell creates a unique intersection between art, technology, and mental health, empowering users to express themselves and own their digital creations.
 
 ## Features
 - **AI-Powered Personalization**: Users receive tailored art prompts and guided meditations based on a quick mood assessment, creating a personalized and therapeutic experience.
@@ -15,8 +15,12 @@ EncompassWell is a decentralized application (dApp) built on the Ethereum blockc
 Mental wellness often lacks accessible, creative outlets for self-expression and healing. Traditional therapy can be expensive and intimidating, while digital platforms rarely offer a personalized and engaging experience focused on mental health. EncompassWell bridges this gap by offering a decentralized platform that empowers users to explore their emotions and creativity through art therapy, all while benefiting from the ownership and monetization capabilities provided by blockchain technology.
 
 ## Technology Stack
-- **Frontend**: React for a responsive, dynamic user interface.
-- **Blockchain**: Ethereum for secure NFT minting and decentralized marketplace features.
+- **Frontend**:
+  - React
+  - Reoen(Web3modal)
+  - Ethers
+  - React Toastify
+- **Blockchain**: Optimism Sepolia for secure NFT minting and decentralized marketplace features.
 - **Smart Contracts**: Solidity and OpenZeppelin libraries to manage NFT creation and transactions.
 - **AI Integration**: AI models to generate personalized art prompts and guided meditations based on user input.
 - **CSS Framework**: TailwindCSS for responsive design and user-friendly interfaces.

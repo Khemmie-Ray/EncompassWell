@@ -36,9 +36,9 @@ const AIChat = () => {
     if (input.trim()) {
       setMessages([...messages, { sender: "user", text: input }]);
       try {
-        const response = await handleUserInput(input); // Assuming response is an array with 2 items
-        const fileType = checkFileType(response[0]); // Check the type of the first item
-        simulateResponse(fileType, response); // Pass the response array to simulateResponse
+        const response = await handleUserInput(input); 
+        const fileType = checkFileType(response[0]); 
+        simulateResponse(fileType, response); 
       } catch (error) {
         console.error("Error:", error);
       }
@@ -74,7 +74,7 @@ const AIChat = () => {
         <img src={logo} alt="" className='w-[50px]'/>
           <ConnectButton />
           </div>
-            <h2 className='lg:text-[24px] md:text-[24px] text-[20px] font-InstrumentSerif px-4 italic mb-4'>Home</h2>       
+            <h2 className='lg:text-[24px] md:text-[24px] text-[20px] font-InstrumentSerif px-4 italic mb-4'>AI Chat</h2>       
             <div className='flex justify-between lg:w-[50%] md:w-[50%] w-[100%] px-4 mb-4'>
                 <IoNotificationsCircleOutline className='text-5xl'/>
             <div className="flex items-center lg:w-[80%] md:w-[80%] w-[80%] rounded-full border border-grey px-6 py-4">
