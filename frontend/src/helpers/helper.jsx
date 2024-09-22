@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const musicApiUrl = "https://encompass-h.vercel.app/api/music";
-const textApiUrl = "https://encompass-h.vercel.app/api/text";
+const textApiUrl =  "https://encompass-h.vercel.app/api/text";
 const imageApiUrl = "https://encompass-h.vercel.app/api/image";
 
 const headers = {
