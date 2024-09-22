@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
-import "../src/ECWNFT.sol";  // Adjust the path based on your project structure
+import "../src/ECWNFT.sol"; // Adjust the path based on your project structure
 
 contract ECWNFTTest is Test {
     ECWNFT private nftContract;
@@ -30,18 +30,18 @@ contract ECWNFTTest is Test {
 
         // Check `tokenOfOwnerByIndex`
         uint256 ownerTokenId = nftContract.tokenOfOwnerByIndex(owner, 0);
-        assertEq(ownerTokenId, 0);  // First minted token should be tokenId 0
+        assertEq(ownerTokenId, 0); // First minted token should be tokenId 0
 
         uint256 user1TokenId1 = nftContract.tokenOfOwnerByIndex(user1, 0);
         uint256 user1TokenId2 = nftContract.tokenOfOwnerByIndex(user1, 1);
-        assertEq(user1TokenId1, 1);  // First minted token to user1
-        assertEq(user1TokenId2, 3);  // Second minted token to user1
+        assertEq(user1TokenId1, 1); // First minted token to user1
+        assertEq(user1TokenId2, 3); // Second minted token to user1
 
         uint256 user2TokenId = nftContract.tokenOfOwnerByIndex(user2, 0);
-        assertEq(user2TokenId, 2);  // First minted token to user2
+        assertEq(user2TokenId, 2); // First minted token to user2
     }
 
-     function testGetAllNFTsOwnedByUser() public {
+    function testGetAllNFTsOwnedByUser() public {
         // Mint tokens to different users
         nftContract.safeMint(owner, "tokenURI1");
         nftContract.safeMint(user1, "tokenURI2");
@@ -57,7 +57,7 @@ contract ECWNFTTest is Test {
         }
 
         // Assert the token IDs are as expected
-        assertEq(user1TokenIds[0], 1);  // First token ID owned by user1
-        assertEq(user1TokenIds[1], 3);  // Second token ID owned by user1
+        assertEq(user1TokenIds[0], 1); // First token ID owned by user1
+        assertEq(user1TokenIds[1], 3); // Second token ID owned by user1
     }
 }
