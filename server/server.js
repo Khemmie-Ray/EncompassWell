@@ -5,12 +5,10 @@ const cors = require("cors");
 const app = express();
 const dotenv = require("dotenv").config();
 // Middleware to parse JSON requests and enable CORS
+app.use(cors());
 app.use(express.json());
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+
+app.options("*", cors());
 
 // API keys and endpoints
 const musicApiUrl = "https://api.goapi.ai/api/suno/v1/music";
@@ -24,71 +22,64 @@ const headers = {
 const fetchAudioUrl = async (taskId) => {
   const url = `${musicApiUrl}/${taskId}`;
   try {
-    let status = "pending";
-    let audioUrl = [];
-    while (status === "pending") {
-      const response = await axios.get(url, { headers });
-      const data = response.data;
+    const response = await axios.get(url, { headers });
+    const data = response.data;
 
-      console.log("Current Status:", data.data.status);
-      if (data.data.status == "completed") {
-        console.log("Completed got here.....");
-        const clips = data.data.clips;
-        for (let i = 0; i < 2; i++) {
-          let firstItem = Object.keys(clips)[i];
-          audioUrl.push(clips[firstItem].audio_url);
-        }
-        break;
-      } else if (data.status === "failed") {
-        throw new Error("Audio generation failed");
+    console.log("Current Status:", data.data.status);
+    if (data.data.status == "completed") {
+      const audioUrl = [];
+      const clips = data.data.clips;
+      for (let i = 0; i < 2; i++) {
+        let firstItem = Object.keys(clips)[i];
+        audioUrl.push(clips[firstItem].audio_url);
       }
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      return audioUrl; // Return completed audio URLs
+    } else if (data.data.status === "failed") {
+      throw new Error("Audio generation failed");
+    } else {
+      throw new Error("pending"); // Signal that the status is still pending
     }
-    return audioUrl;
   } catch (error) {
-    console.error("Error fetching audio_url:", error);
+    if (error.message === "pending") {
+      throw new Error("pending"); // Continue signaling pending status
+    }
     throw new Error("Failed to retrieve audio_url");
   }
 };
 
-const pollForAudioUrl = async (taskId) => {
-  const pollInterval = 2000;
-  const maxAttempts = 10;
-  let attempts = 0;
-  let audioUrl = [];
-
-  while (attempts < maxAttempts) {
-    try {
-      audioUrl = await fetchAudioUrl(taskId);
-      if (audioUrl.length > 0) break;
-    } catch (error) {
-      console.log(`Polling attempt ${attempts + 1} failed. Retrying...`);
-    }
-    attempts++;
-    await new Promise((resolve) => setTimeout(resolve, pollInterval));
-  }
-
-  if (!audioUrl) {
-    throw new Error("Failed to retrieve audio_url after multiple attempts");
-  }
-
-  return audioUrl;
-};
 app.get("/", (req, res) => res.send("Express on Vercel"));
 
-// POST endpoint for Music API
+// Modified POST endpoint for Music API
 app.post("/api/music", async (req, res) => {
   try {
+    // Start the music generation request
     const response = await axios.post(musicApiUrl, req.body, { headers });
-    const taskId = await response.data.data.task_id;
-
-    const audioUrl = await pollForAudioUrl(taskId);
-    res.json(audioUrl);
+    const taskId = response.data.data.task_id;
+    console.log(taskId);
+    // Return the taskId immediately to the client
+    res.json({
+      taskId: taskId,
+    });
   } catch (error) {
-    console.error("Error in Text API Call:", error);
-    res.status(error.response ? error.response.status : 500).json({
+    console.error("Error in Music API Call:", error);
+    res.status(500).json({
       error: "Music API request failed",
       details: error.response ? error.response.data : error.message,
+    });
+  }
+});
+
+// Route to poll for status using taskId
+app.get("/api/music/:taskId", async (req, res) => {
+  const taskId = req.params.taskId;
+  try {
+    const audioUrl = await fetchAudioUrl(taskId); // Fetch the status and possibly audio URLs
+    res.json({ status: "completed", audioUrl }); // If completed, send the audio URLs
+  } catch (error) {
+    // Handle case where audio is not yet ready (still pending)
+    res.json({
+      status: "pending",
+      message: "Music is still generating. Try again later.",
     });
   }
 });

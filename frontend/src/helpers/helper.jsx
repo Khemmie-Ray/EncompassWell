@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const musicApiUrl = "https://encompass-h.vercel.app/api/music";
-const textApiUrl =  "https://encompass-h.vercel.app/api/text";
-const imageApiUrl = "https://encompass-h.vercel.app/api/image";
+const musicApiUrl = "https://encompass-h-1.onrender.com/api/music";
+const textApiUrl = "https://encompass-h.vercel.app/api/text";
+const imageApiUrl = "https://encompass-h-1.onrender.com/api/image";
 
 const headers = {
   "X-API-Key": import.meta.env.VITE_X_API_KEY,
@@ -29,19 +29,28 @@ export function handleUserInput(input) {
   }
 }
 
+// Utility function to check if a string is a valid UUID
+function isValidUUID(uuid) {
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(uuid);
+}
+
 export function checkFileType(url) {
   const imageExtensions = ["jpg", "jpeg", "png", "gif", "svg"];
-  const musicExtensions = ["mp3", "wav", "ogg", "flac"];
-
+  console.log("url", url);
+  // Check if the URL ends with an image extension
   const extension = url.split(".").pop().toLowerCase();
-
   if (imageExtensions.includes(extension)) {
     return "image";
-  } else if (musicExtensions.includes(extension)) {
-    return "music";
-  } else {
-    return "unknown";
   }
+
+  // Check if the URL is a valid UUID
+  if (isValidUUID(url)) {
+    return "audio"; // Recognize UUIDs as music identifiers
+  }
+
+  return "text"; // If neither, return unknown
 }
 
 // Helper function to append the last AI text response to the current input
@@ -60,7 +69,7 @@ function appendLastTextResponse(currentInput) {
   return currentInput;
 }
 
-// Function to call the Music API
+// Function to call the Music API task_ID
 function callMusicApi(input) {
   const musicPayload = {
     custom_mode: false,
@@ -74,8 +83,10 @@ function callMusicApi(input) {
   return axios
     .post(musicApiUrl, musicPayload)
     .then((response) => {
-      console.log("Music Response: ", response.data);
-      return response.data;
+      console.log("Music taskId: ", response.data.taskId);
+      let res = [];
+      res.push(response.data.taskId);
+      return res;
     })
     .catch((error) => {
       console.error("Music API Error:", error);
@@ -83,6 +94,21 @@ function callMusicApi(input) {
     });
 }
 
+// Function to call the Music API
+export function callMusicTaskId(input) {
+  const musicPayload = {};
+
+  return axios
+    .post(`${musicApiUrl}/${input}`, musicPayload)
+    .then((response) => {
+      console.log("Taskid music Response: ", response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("Music TaskId Error:", error);
+      return error;
+    });
+}
 // Function to call the Text API
 function callTextApi(input) {
   const textPayload = {
@@ -132,3 +158,30 @@ function callImageApi(input) {
       return error;
     });
 }
+
+export async function pollMusicTaskId(input, maxAttempts = 7, interval = 600000) {
+  let attempts = 0;
+
+  while (attempts < maxAttempts) {
+    try {
+      const response = await callMusicTaskId(input);
+      console.log(response.data.status);
+      // Check for a valid response
+      if (response.data.status === "completed") {
+        console.log("Valid Music Response: ", response.data);
+        return response.data; // Return the valid response
+      } else {
+        console.log(`Attempt ${attempts + 1}: Music task is still pending...`);
+      }
+    } catch (error) {
+      console.error("Error fetching music task ID:", error);
+    }
+
+    // Wait for the specified interval before retrying
+    await new Promise((resolve) => setTimeout(resolve, interval));
+    attempts++;
+  }
+
+  throw new Error("Max attempts reached without a valid response.");
+}
+
