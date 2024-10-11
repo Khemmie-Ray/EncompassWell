@@ -66,6 +66,8 @@ const AIChat = () => {
         );
       } else if (fileType === "audio") {
         console.log(fileType, item);
+        let songs = pollMusicTaskId(item).then((data) => console.log(data));
+        console.log(songs);
         // let songs[https] =  pollMusicTaskId(item);  should return an array of links to a song.. a  promise
         // console.log("songs", songs);
         // item is task id now....

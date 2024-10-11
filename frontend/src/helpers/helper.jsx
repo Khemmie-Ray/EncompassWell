@@ -60,11 +60,11 @@ function appendLastTextResponse(currentInput) {
     return currentInput; // Do not append previous response
   }
 
-  // Append the last response if the array is not empty
-  if (aiResponseArray.length > 0) {
-    const lastAiResponse = aiResponseArray[aiResponseArray.length - 1];
-    return `${currentInput} based on previous context: ${lastAiResponse}`;
-  }
+  // // Append the last response if the array is not empty
+  // if (aiResponseArray.length > 0) {
+  //   const lastAiResponse = aiResponseArray[aiResponseArray.length - 1];
+  //   return `${currentInput} based on previous context: ${lastAiResponse}`;
+  // }
 
   return currentInput;
 }
@@ -99,7 +99,7 @@ export function callMusicTaskId(input) {
   const musicPayload = {};
 
   return axios
-    .post(`${musicApiUrl}/${input}`, musicPayload)
+    .get(`${musicApiUrl}/${input}`)
     .then((response) => {
       console.log("Taskid music Response: ", response.data);
       return response.data;
@@ -123,7 +123,7 @@ function callTextApi(input) {
     .then((response) => {
       // Save the AI response text into the array
       const aiResponse = response.data; // Assuming response.data contains the AI's response text
-      aiResponseArray.push(aiResponse);
+      // aiResponseArray.push(aiResponse);
       console.log("Text Response: ", aiResponse);
       return aiResponse;
     })
@@ -159,17 +159,22 @@ function callImageApi(input) {
     });
 }
 
-export async function pollMusicTaskId(input, maxAttempts = 7, interval = 600000) {
+export async function pollMusicTaskId(
+  input,
+  maxAttempts = 7,
+  interval = 60000
+) {
   let attempts = 0;
 
   while (attempts < maxAttempts) {
     try {
       const response = await callMusicTaskId(input);
-      console.log(response.data.status);
+      console.log("this res:", response);
       // Check for a valid response
-      if (response.data.status === "completed") {
-        console.log("Valid Music Response: ", response.data);
-        return response.data; // Return the valid response
+      if (response.status === "completed") {
+        console.log("Valid Music Response: ", response.audioUrl);
+        attempts  = maxAttempts;
+        return response.audioUrl; // Return the valid response
       } else {
         console.log(`Attempt ${attempts + 1}: Music task is still pending...`);
       }
@@ -184,4 +189,3 @@ export async function pollMusicTaskId(input, maxAttempts = 7, interval = 600000)
 
   throw new Error("Max attempts reached without a valid response.");
 }
-
