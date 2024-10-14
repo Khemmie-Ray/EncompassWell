@@ -12,11 +12,18 @@ const useGetAllNft = () => {
     // console.log(address)
 
     const fetchAllNft = useCallback(async () => {
+        const convertIpfsUrl = (url) => {
+            if (url.startsWith("ipfs://")) {
+                return url.replace("ipfs://", "https://ipfs.io/ipfs/");
+            }
+            return url;
+        };
+        
         try {
             const contract = getNFTMintContract(readOnlyProvider);
             const res = await contract.getUserNFTs(address);
           
-            const nftUrls = Object.values(res)?.map((url) => url);
+            const nftUrls = Object.values(res).map((url) => convertIpfsUrl(url));
             
             setAllNft(nftUrls);
         } catch (error) {

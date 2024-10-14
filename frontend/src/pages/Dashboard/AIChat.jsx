@@ -58,7 +58,7 @@ const AIChat = () => {
     return content.map((item, index) => {
       if (fileType === "image") {
         return (
-          <div className="w-[100%] lg:w-[48%] md:w-[48%] shadow-lg bg-black p-4 rounded-lg">
+          <div className="w-[100%] lg:w-[48%] md:w-[48%] shadow-lg bg-black p-4 rounded-lg mb-4">
             <img
               key={index}
               src={item}
