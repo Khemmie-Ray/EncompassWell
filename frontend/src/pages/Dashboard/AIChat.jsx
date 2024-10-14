@@ -16,6 +16,8 @@ const AIChat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const chatRef = useRef(null);
+  const [songUrl, setSongUrl] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (chatRef.current) {
@@ -33,10 +35,11 @@ const AIChat = () => {
           fileType: fileType,
         },
       ]);
-    }, 1000);
+    }, 2000);
   };
 
   const handleSendMessage = async () => {
+    setLoading(true)
     if (input.trim()) {
       setMessages([...messages, { sender: "user", text: input }]);
       try {
@@ -47,6 +50,7 @@ const AIChat = () => {
         console.error("Error:", error);
       }
       setInput("");
+      setLoading(false)
     }
   };
 
@@ -54,7 +58,7 @@ const AIChat = () => {
     return content.map((item, index) => {
       if (fileType === "image") {
         return (
-          <div className="w-[100%] lg:w-[47%] md:w-[47%]">
+          <div className="w-[100%] lg:w-[48%] md:w-[48%] shadow-lg bg-black p-4 rounded-lg">
             <img
               key={index}
               src={item}
@@ -65,18 +69,16 @@ const AIChat = () => {
           </div>
         );
       } else if (fileType === "audio") {
-        console.log(fileType, item);
-        let songs = pollMusicTaskId(item).then((data) => console.log(data));
-        console.log(songs);
-        // let songs[https] =  pollMusicTaskId(item);  should return an array of links to a song.. a  promise
-        // console.log("songs", songs);
-        // item is task id now....
-        // item is task id now....
+        let songs = pollMusicTaskId(item).then((data) => setSongUrl(data));
         return (
-          <audio key={index} controls className="mb-2">
-            <source src={item} type="audio/mpeg" />
+        <div className="chat chat-end">
+           <div className="chat-bubble">
+         {songUrl?.map((url) => ( <audio key={index} controls className="mb-2">
+            <source src={url} type="audio/mpeg" />
             Your browser does not support the audio tag.
-          </audio>
+          </audio>))}
+          </div>
+          </div>
         );
       } else {
         return (
@@ -130,15 +132,19 @@ const AIChat = () => {
                 }}
               >
                 {message.sender === "user" ? (
-                  <p className="text-white flex items-center">
-                    {message.text}
-                    <img src={avatar} alt="" className="ml-4 w-[50px]" />
-                  </p>
+                  <div className="chat chat-end text-white flex items-center">
+                    <div className="chat-bubble">
+                  <p>{message.text}</p>
+                  </div>
+                  <img src={avatar} alt="" className="ml-4 w-[50px]" />
+                  </div>
                 ) : (
-                  <div className="flex items-start my-4">
+                  <div className="flex items-start my-4 chat chat-start">
                     <img src={iconlogo} alt="" className="mr-4 w-[50px]" />
+                    <div className="chat-bubble p-4">
                     <div className="flex items-center justify-between lg:flex-row md:flex-row flex-col">
                       {renderMessageContent(message.content, message.fileType)}
+                    </div>
                     </div>
                   </div>
                 )}
@@ -149,16 +155,24 @@ const AIChat = () => {
               Start a conversation
             </p>
           )}
+            {loading && ( 
+            <div className="mb-3 p-2 flex items-start chat chat-start">
+              <img src={iconlogo} alt="bot" className="mr-4 w-[50px]" />
+              <div className="chat-bubble">
+                <p className="text-white">Loading...</p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
       <section className="lg:w-[80%] md:w-[80%] w-[90%] mx-auto mt-auto">
         <div className="flex items-center w-[100%] rounded-full border border-grey pl-6 justify-between bg-gradient-to-tr from-[#151A16] to-[#666666]/5 shadow-lg shadow-grey/20">
           <input
             type="text"
-            placeholder="Write a message"
             required
-            onChange={(e) => setInput(e.target.value)}
             value={input}
+            placeholder="Write a message"
+            onChange={(e) => setInput(e.target.value)}
             className="bg-transparent outline-0 w-[80%]"
           />
           <button className="text-secondary" onClick={handleSendMessage}>

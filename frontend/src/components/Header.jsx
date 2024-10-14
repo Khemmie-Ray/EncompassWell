@@ -21,8 +21,8 @@ const Header = () => {
           Home
         </NavLink>
         <NavLink>Partnerships</NavLink>
-        <NavLink>Top Artists</NavLink>
-        <NavLink>About</NavLink>
+        <a href="#topArtist" className="hover:text-white focus:text-white">Top Artists</a>
+        <a href="#about" className="hover:text-white focus:text-white">About</a>
         <button
           onClick={() => open()}
           className="bg-secondary rounded-full px-6 py-4 text-primary"
@@ -48,13 +48,13 @@ const Header = () => {
             <NavLink to="/" className="hover:text-white focus:text-white mb-6">
               Home
             </NavLink>
-            <a href="" className="hover:text-white focus:text-white mb-6">
+            <a href="#" className="hover:text-white focus:text-white mb-6">
               Partnerships
             </a>
-            <a href="" className="hover:text-white focus:text-white mb-6">
+            <a href="#topArtist" className="hover:text-white focus:text-white mb-6">
               Top Artists
             </a>
-            <a href="" className="hover:text-white focus:text-white mb-6">
+            <a href="about" className="hover:text-white focus:text-white mb-6">
               About
             </a>
             <button

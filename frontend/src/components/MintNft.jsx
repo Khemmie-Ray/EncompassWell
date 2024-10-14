@@ -23,9 +23,7 @@ const MintNft = ({ item }) => {
     const contract = getNFTMintContract(signer);
 
     try {
-      // Assuming the smart contract's safeMint function requires a token ID (index)
       const transaction = await contract.safeMint(address, item);
-      // console.log("transaction: ", transaction);
       const receipt = await transaction.wait();
 
       if (receipt.status) {
@@ -46,10 +44,11 @@ const MintNft = ({ item }) => {
   };
 
   return (
-    <div>
+    <div className='flex justify-between'>
+      <button className='bg-secondary rounded-full px-4 py-2 my-4 font-[600] text-primary w-[49%]'>Download</button>
       <button 
         onClick={handleMint}
-        className="bg-secondary rounded-full px-4 py-2 my-4 font-[600] text-primary w-[100%]"
+        className="bg-secondary rounded-full px-4 py-2 my-4 font-[600] text-primary w-[49%]"
       >
         Mint as NFT
       </button>

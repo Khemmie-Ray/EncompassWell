@@ -23,7 +23,7 @@ const metadata = {
 export const configWeb3Modal = () => createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
   chains: [OpSepolia],
-  projectId: import.meta.env.VITE_PROJECT_ID,
+  projectId: import.meta.env.VITE_PROJECTID,
   enableAnalytics: false,
   themeVariables: {
     '--w3m-accent': '#B9A7C3',

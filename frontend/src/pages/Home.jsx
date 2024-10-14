@@ -40,7 +40,7 @@ const Home = () => {
             <img src={heroImg} alt="" />
           </div>
         </section>
-        <section className="lg:mx-16 md:mx-16 mx-6 pt-6 my-40 bg-[#F1B398] rounded-[30px] flex justify-between flex-col lg:flex-row md:flex-row">
+        <section className="lg:mx-16 md:mx-16 mx-6 pt-6 my-40 bg-[#F1B398] rounded-[30px] flex justify-between flex-col lg:flex-row md:flex-row" id="about">
           <div
             className="w-[100%] lg:w-[45%] md:w-[45%] bg-cover bg-center h-[55vh] rounded-bl-[30px] lg:order-1 md:order-1 order-2 rounded-br-[30px] lg:rounded-br-0 md:rounded-br-0"
             style={{ backgroundImage: `url(${nftBg})` }}
@@ -56,7 +56,7 @@ const Home = () => {
             </div>
           </div>
         </section>
-        <section className="lg:px-16 md:px-16 px-6">
+        <section className="lg:px-16 md:px-16 px-6" id="topArtist">
           <h2 className="lg:text-[56px] md:text-[56px] text-[32px] font-[500] my-8 py-4 border-b border-grey mb-14">
             Top{" "}
             <em className="ml-2 font-[400] font-InstrumentSerif">Artists</em>
@@ -140,7 +140,6 @@ const Home = () => {
         </section>
       </main>
       <Footer />
-      {/* <AIChat/> */}
     </div>
   );
 };
