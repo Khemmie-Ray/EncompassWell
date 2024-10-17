@@ -11,7 +11,6 @@ import {
 } from "../../helpers/helper";
 import ConnectButton from "../../components/ConnectButton";
 import MintNft from "../../components/MintNft";
-import playicon from "../../assets/playIcon.svg";
 import Frequency from "../../components/loaders/Frequency";
 
 const AIChat = () => {
