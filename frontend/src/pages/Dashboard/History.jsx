@@ -37,7 +37,7 @@ const History = () => {
           <div className="flex justify-between lg:flex-row md:flex-row flex-col flex-wrap">
             {allNft.map((nft, index) => (
               <div key={index} className="w-[100%] lg:w-[32%] md:w-[32%] mb-4">
-                <img src={nft} alt={`NFT ${index}`} className="w-full h-auto rounded-2xl" />
+                <img src={nft} alt='' className="w-full h-auto rounded-2xl" />
               </div>
             ))}
           </div>

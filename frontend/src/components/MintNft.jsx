@@ -115,7 +115,7 @@ const MintNft = ({ item }) => {
         Download
       </ImageDownloader>
       <button
-        className="btn bg-secondary rounded-full px-4 py-2 my-4 font-[600] text-primary lg:w-[49%] md:w-[49%] w-[100%]"
+        className="bg-secondary rounded-full px-4 py-2 my-4 font-[600] text-primary lg:w-[49%] md:w-[49%] w-[100%]"
         onClick={() => setIsOpen(true)}
       >
         Mint as NFT
@@ -156,7 +156,7 @@ const MintNft = ({ item }) => {
             Mint 
           </button>
         </div>
-        <form method="dialog" className="modal-backdrop">
+        <form method="dialog" className="modal-backdrop" onClick={() => setIsOpen(false)}>
           <button>close</button>
         </form>
       </dialog>)}

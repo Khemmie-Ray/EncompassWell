@@ -11,13 +11,15 @@ import {
 } from "../../helpers/helper";
 import ConnectButton from "../../components/ConnectButton";
 import MintNft from "../../components/MintNft";
+import playicon from "../../assets/playIcon.svg";
+import Frequency from "../../components/loaders/Frequency";
 
 const AIChat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const chatRef = useRef(null);
-  const [songUrl, setSongUrl] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [songUrl, setSongUrl] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (chatRef.current) {
@@ -39,7 +41,7 @@ const AIChat = () => {
   };
 
   const handleSendMessage = async () => {
-    setLoading(true)
+    setLoading(true);
     if (input.trim()) {
       setMessages([...messages, { sender: "user", text: input }]);
       try {
@@ -50,7 +52,7 @@ const AIChat = () => {
         console.error("Error:", error);
       }
       setInput("");
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -69,15 +71,21 @@ const AIChat = () => {
           </div>
         );
       } else if (fileType === "audio") {
-        let songs = pollMusicTaskId(item).then((data) => setSongUrl(data));
+        pollMusicTaskId(item).then((data) => setSongUrl(data));
         return (
-        <div className="chat chat-end">
-           <div className="chat-bubble">
-         {songUrl?.map((url) => ( <audio key={index} controls className="mb-2">
-            <source src={url} type="audio/mpeg" />
+          <div className="w-[100%] flex justify-between flex-col lg:flex-row md:flex-row">
+            {songUrl?.map((url, index) => (
+              <div className="flex w-[100%] lg:w-[48%] md:w-[48%] bg-gradient-to-tr from-[#051206]/40 to-[#030A04]/40 border-spacing-3 border-secondary/40 py-8 rounded-2xl px-4 mb-4 flex-col m-4">
+                <div className="flex justify-between items-center">
+                  <p className="text-sm text-white mb-2 ">Audio {index + 1}</p>
+                  <Frequency />
+                </div>
+                <audio key={index} controls className="my-4">
+            <source src={url} type="audio/mpeg"/>
             Your browser does not support the audio tag.
-          </audio>))}
-          </div>
+          </audio>
+              </div>
+            ))}
           </div>
         );
       } else {
@@ -134,17 +142,20 @@ const AIChat = () => {
                 {message.sender === "user" ? (
                   <div className="chat chat-end text-white flex items-center">
                     <div className="chat-bubble">
-                  <p>{message.text}</p>
-                  </div>
-                  <img src={avatar} alt="" className="ml-4 w-[50px]" />
+                      <p>{message.text}</p>
+                    </div>
+                    <img src={avatar} alt="" className="ml-4 w-[50px]" />
                   </div>
                 ) : (
                   <div className="flex items-start my-4 chat chat-start">
                     <img src={iconlogo} alt="" className="mr-4 w-[50px]" />
                     <div className="chat-bubble p-4">
-                    <div className="flex items-center justify-between lg:flex-row md:flex-row flex-col">
-                      {renderMessageContent(message.content, message.fileType)}
-                    </div>
+                      <div className="flex items-center justify-between lg:flex-row md:flex-row flex-col w-[100%]">
+                        {renderMessageContent(
+                          message.content,
+                          message.fileType
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -155,7 +166,7 @@ const AIChat = () => {
               Start a conversation
             </p>
           )}
-            {loading && ( 
+          {loading && (
             <div className="mb-3 p-2 flex items-start chat chat-start">
               <img src={iconlogo} alt="bot" className="mr-4 w-[50px]" />
               <div className="chat-bubble">

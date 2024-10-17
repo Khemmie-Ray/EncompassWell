@@ -3,3 +3,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+audio::-webkit-media-controls-panel {
+    background-color: #B9A7C3;
+    border-radius: 20px;
+  }
