@@ -20,7 +20,7 @@ const Header = () => {
         <NavLink to="/" className="hover:text-white focus:text-white">
           Home
         </NavLink>
-        <NavLink>Partnerships</NavLink>
+        <a href="#" className="hover:text-white focus:text-white">Partnerships</a>
         <a href="#topArtist" className="hover:text-white focus:text-white">Top Artists</a>
         <a href="#about" className="hover:text-white focus:text-white">About</a>
         <button

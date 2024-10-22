@@ -10,7 +10,7 @@ import textLogo from '../assets/b-logo.svg'
 const Footer = () => {
   return (
     <footer className="my-6">
-        <img src={textLogo} alt="" className="mx-auto lg:w-[80%] md:w-[80%] w-[100%] h-[10vh] lg:h-[25vh] md:h-[25vh]"/>
+        <img src={textLogo} alt="" className="w-[100%] h-[10vh] lg:h-[25vh] md:h-[25vh]"/>
       <section className="py-10 border-t border-l border-r border-lightGrey rounded-tl-3xl rounded-tr-3xl">
       <div className="flex justify-between w-[90%] mx-auto flex-col lg:flex-row md:flex-row">
         <div className="lg:w-2/6 md:w-2/6 w-[100%] self-center">

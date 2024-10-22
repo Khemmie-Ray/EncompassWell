@@ -3,7 +3,7 @@ import { BiBox } from "react-icons/bi";
 import { TbSettings } from "react-icons/tb";
 import { ImCart } from "react-icons/im";
 import { NavLink } from "react-router-dom";
-import logo from '../assets/logo2.svg';
+import logo from '../assets/mini.svg';
 import { useDisconnect } from "@web3modal/ethers/react";
 import { RiChatHistoryFill } from "react-icons/ri";
 import { SiChatbot } from "react-icons/si";
@@ -12,7 +12,7 @@ const Sidebar = () =>  {
   const { disconnect } = useDisconnect()
 
   const activeStyle = {
-    background: '#B9A7C3',
+    background: '#F86737',
     borderRadius: '10px',
     color: '#030A04',
     width: '100%',
@@ -21,7 +21,7 @@ const Sidebar = () =>  {
 
   return (
     <div className='w-[20%] text-white p-8 py-12 h-[100vh] hidden lg:flex md:flex flex-col border-r border-grey'>
-      <img src={logo} alt='logo'className="mb-20" />
+      <img src={logo} alt='logo'className="mb-20 w-[150px]" />
       <NavLink to="/dashboard" className="text-[14px] flex items-center py-4 mb-6 px-4" style={({isActive}) => isActive ? activeStyle : null } end><CgHomeAlt className="mr-4" />Dashboard</NavLink>
       <NavLink to="marketplace" className="text-[14px] flex items-center py-4 mb-6 px-4" style={({isActive}) => isActive ? activeStyle : null }><ImCart className="mr-4" /> Marketplace</NavLink>
       <NavLink to="aichat" className="text-[14px]   flex items-center py-4 mb-6 px-4" style={({isActive}) => isActive ? activeStyle : null }><SiChatbot className="mr-4" />AI Chat</NavLink>

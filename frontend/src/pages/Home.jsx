@@ -5,12 +5,12 @@ import heroImg from "../assets/hero1.svg";
 import logo from "../assets/logo.svg";
 import HIWCards from "../components/HIWCards";
 import nftBg from "../assets/nft.png";
-import logoW from "../assets/logo-w.svg";
+import logoW from "../assets/mini.svg";
 import artNFT from "../assets/artNft.svg";
 import avatar1 from "../assets/avartar1.svg";
 import avatar2 from "../assets/avatar2.svg";
 import avatar3 from "../assets/avatar3.svg";
-// import AIChat from "../pages/Dashboard/AIChat";
+
 const Home = () => {
   return (
     <div>
@@ -40,16 +40,13 @@ const Home = () => {
             <img src={heroImg} alt="" />
           </div>
         </section>
-        <section className="lg:mx-16 md:mx-16 mx-6 pt-6 my-40 bg-[#F1B398] rounded-[30px] flex justify-between flex-col lg:flex-row md:flex-row" id="about">
+        <section className="lg:mx-16 md:mx-16 mx-6 pt-6 my-40 bg-[#F8845E] rounded-[30px] flex justify-between flex-col lg:flex-row md:flex-row" id="about">
           <div
             className="w-[100%] lg:w-[45%] md:w-[45%] bg-cover bg-center h-[55vh] rounded-bl-[30px] lg:order-1 md:order-1 order-2 rounded-br-[30px] lg:rounded-br-0 md:rounded-br-0"
             style={{ backgroundImage: `url(${nftBg})` }}
           ></div>
-          <div className="w-[100%] lg:w-[55%] md:w-[55%] lg:order-2 md:order-2 order-1">
-            <p className="flex">
-              <img src={logoW} alt="" className="w-[25px] h-[25px] mr-4" />
-              EncompassWell
-            </p>
+          <div className="w-[100%] lg:w-[55%] md:w-[55%] lg:order-2 md:order-2 order-1 self-center">
+              <img src={logoW} alt="" className="w-[100px]" />
             <div className="lg:text-[130px] md:text-[130px] text-[52px] font-[600] bg-gradient-to-b from-white via-white/70 to-white/5 bg-clip-text text-transparent">
               <h2 className="mb-0">Built for</h2>
               <h2>Tranquility</h2>
