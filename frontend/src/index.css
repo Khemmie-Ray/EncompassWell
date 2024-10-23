@@ -5,6 +5,6 @@
 @tailwind utilities;
 
 audio::-webkit-media-controls-panel {
-    background-color: #B9A7C3;
+    background-color: #F86737;
     border-radius: 20px;
   }
